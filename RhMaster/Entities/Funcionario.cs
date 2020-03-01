@@ -20,8 +20,9 @@ namespace RhMaster
         List<Funcionario> ListaFuncionario = new List<Funcionario>();
 
         // CONSTRUTORES
-        public Funcionario() { 
-        }   
+        public Funcionario()
+        {
+        }
         public Funcionario(string nome, DateTime dataNascimento, string cpf, char sexo, string nacionalidade, double salario, string cargo, StatusFuncionario status)
         {
             Nome = nome;
@@ -34,7 +35,7 @@ namespace RhMaster
             Status = status;
         }
 
-        public  void InserirFuncionario()
+        public void InserirFuncionario()
         {
             Funcionario func = new Funcionario();
             Console.WriteLine("Nome: ");
@@ -44,13 +45,13 @@ namespace RhMaster
 
             Console.WriteLine("Cpf: ");
             func.Cpf = Console.ReadLine();
-            while(!(ValidaCpf(func.Cpf) && !(ExisteFuncionario(func.Cpf))))
+            while (!(ValidaCpf(func.Cpf) && !(ExisteFuncionario(func.Cpf))))
             {
                 Console.WriteLine("CPF inválido ou já cadastrado na base");
                 Console.WriteLine("Cpf: ");
                 func.Cpf = Console.ReadLine();
             }
-            
+
             Console.WriteLine("Sexo: ex.(M/F)");
             func.Sexo = Char.Parse(Console.ReadLine());
             Console.WriteLine("Nacionalidade: ");
@@ -76,6 +77,7 @@ namespace RhMaster
             return ListaFuncionario.Any(x => x.Cpf == cpf);
         }
 
+        #region Validando Cpf
         public bool ValidaCpf(string cpf)
 
         {
@@ -129,7 +131,12 @@ namespace RhMaster
 
             return cpf.EndsWith(digito);
         }
-        
+        #endregion
+
+        #region Métodos de alteração de dados
+
+        #endregion
+
         public override string ToString()
         {
             return $"{Nome} + {DataNascimento.ToString("dd/MM/yyyy")} + {Status}";
