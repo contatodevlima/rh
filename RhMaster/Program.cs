@@ -7,6 +7,8 @@ namespace RhMaster
         static void Main(string[] args)
         {
             int escolha = 10;
+            Funcionario f = new Funcionario();
+            
             do
             {
                 escolha = Menu();
@@ -50,7 +52,7 @@ namespace RhMaster
 
 
             } while (escolha != 0);
-
+            
         }
         public static int Menu()
         {
