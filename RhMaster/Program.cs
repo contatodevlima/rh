@@ -6,7 +6,7 @@ namespace RhMaster
     {
         static void Main(string[] args)
         {
-            int escolha = 10;
+            int escolha ;
             Funcionario f = new Funcionario();
             
             do
