@@ -6,58 +6,46 @@ namespace RhMaster
     {
         static void Main(string[] args)
         {
-            int escolha ;
+            int escolha;
             Funcionario f = new Funcionario();
-            
+
+            escolha = Menu();
             do
             {
-                escolha = Menu();
-
-                if (escolha == 1)
+                switch (escolha)
                 {
-                    // metodo validarcpf())
-
+                    case 1:
+                        f.InserirFuncionario();
+                        break;
+                    case 2:
+                        // método alterardados() )
+                        break;
+                    case 3:
+                        // método folha de pagamento())   
+                        break;
+                    case 4:
+                        // Ver salário por sexo
+                        break;
+                    case 5:
+                        // Buscar o funcionário mais velho da empresa
+                        break;
+                    case 6:
+                        // Buscar o funcionário mais novo da empresa
+                        break;
+                    case 7:
+                        // Buscar todos os funcionários ordenados pela idade
+                        break;
+                    case 8:
+                        // Buscar todos os funcionários pela nacionalidade
+                        break;
                 }
-                else if (escolha == 2)
-                {
-                    // método alterardados() ) 
-                }
-
-                else if (escolha == 3)
-                {
-                    //étodo folha de pagamento())
-                }
-
-                if (escolha == 4)
-                {
-                    // metodo Ver salário por sexo())
-
-                }
-                else if (escolha == 5)
-                {
-                    // Buscar o funcionário mais velho da empresa() ) 
-                }
-                else if (escolha == 6)
-                {
-                    // Buscar o funcionário mais novo da empresa() ) 
-                }
-                else if (escolha == 7)
-                {
-                    // Buscar todos os funcionários ordenados pela idade() ) 
-                }
-                else if (escolha == 8)
-                {
-                    // Buscar todos os funcionários pela nacionalidade() ) 
-                }
-
-
-            } while (escolha != 0);
-            
-        }
+            }
+            while (escolha != 0);
+        }        
         public static int Menu()
         {
             Console.Clear();
-            Console.WriteLine(" 1. Gerenciar funcionários ");    //(cai no metodo validarcpf())
+            Console.WriteLine(" 1. Inserir funcionários ");    //(cai no metodo validarcpf())
             Console.WriteLine(" 2. Alterar dados ");            //(cai no método alterardados() )
             Console.WriteLine(" 3. Folha de Pagamento");        //(cai no método folha de pagamento())                           
             Console.WriteLine(" 4. Ver salário por sexo ");
@@ -69,8 +57,5 @@ namespace RhMaster
             Console.WriteLine(" 0. Sair do sistema");
             return int.Parse(Console.ReadLine());
         }
-
     }
 }
-
-

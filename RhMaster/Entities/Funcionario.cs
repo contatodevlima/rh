@@ -34,7 +34,7 @@ namespace RhMaster
             Status = status;
         }
 
-        public void InserirFuncionario()
+        public  void InserirFuncionario()
         {
             Funcionario func = new Funcionario();
             Console.WriteLine("Nome: ");
