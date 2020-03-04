@@ -15,6 +15,7 @@ namespace RhMaster
         public string Nacionalidade { get; set; }
         public double Salario { get; set; }
         public string Cargo { get; set; }
+        public int Idade { get; set; }
         public StatusFuncionario Status { get; set; }
 
         List<Funcionario> ListaFuncionario = new List<Funcionario>();
@@ -23,7 +24,7 @@ namespace RhMaster
         public Funcionario()
         {
         }
-        public Funcionario(string nome, DateTime dataNascimento, string cpf, char sexo, string nacionalidade, double salario, string cargo, StatusFuncionario status)
+        public Funcionario(string nome, DateTime dataNascimento, string cpf, char sexo, string nacionalidade, double salario, string cargo, int idade, StatusFuncionario status)
         {
             Nome = nome;
             DataNascimento = dataNascimento;
@@ -32,9 +33,11 @@ namespace RhMaster
             Nacionalidade = nacionalidade;
             Salario = salario;
             Cargo = cargo;
+            Idade = idade;
             Status = status;
         }
 
+        // MÉTODOS
         public void InserirFuncionario()
         {
             Funcionario func = new Funcionario();
@@ -60,6 +63,7 @@ namespace RhMaster
             func.Salario = double.Parse(Console.ReadLine());
             Console.Write("Cargo: ");
             func.Cargo = Console.ReadLine();
+            func.Idade = CalcIdade(func.DataNascimento);
             func.Status = StatusFuncionario.Ativo;
 
             ListaFuncionario.Add(func);
@@ -125,6 +129,17 @@ namespace RhMaster
         }
         #endregion
 
+        #region Calculo Idade
+        public int CalcIdade(DateTime data)
+        {
+            int idade = DateTime.Now.Year - data.Year;
+            if (DateTime.Now.DayOfYear < data.DayOfYear)
+                return idade;
+            else
+            return idade - 1;
+        }
+        #endregion
+
         #region Métodos de alteração de dados
         public void AlterarNome()
         {
@@ -150,11 +165,6 @@ namespace RhMaster
         }
         #endregion
 
-        public override string ToString()
-        {
-            return $"{Nome} + {DataNascimento.ToString("dd/MM/yyyy")} + {Status}";
-        }
-
         #region Buscas
         public void ListarFuncionarios()
         {
@@ -164,8 +174,8 @@ namespace RhMaster
             }
             Console.ReadKey();
         }
-
-        public void Listarnovos()
+        
+        public void ListarNovos()
         {
             foreach (var item in ListaFuncionario)
             {
@@ -173,16 +183,44 @@ namespace RhMaster
                 Console.WriteLine(item.Nome);
                 Console.ReadKey();
                 break;
-               
             }
-                      
         }
-        public void Listarvelhos()
+
+        public void ListarVelhos()
         {
-            var novos = ListaFuncionario.Max( novos => novos.DataNascimento);
-            Console.WriteLine(novos.Year);
+            var velhos = ListaFuncionario.Max(velhos => velhos.DataNascimento);
+            Console.WriteLine(velhos.Year);
             Console.ReadKey();
         }
+
+        public void ListarPorIdade()
+        {
+            var listaIdade = ListaFuncionario.OrderBy(x => x.Idade);
+            foreach (var item in listaIdade)
+            {
+                Console.WriteLine(item);
+            }
+        }
+        public void SalarioPorSexo()
+        {
+            Console.WriteLine("Sexo: M ou F");
+            char sexo = char.Parse(Console.ReadLine());
+            var listaSexo = ListaFuncionario.Where(x => x.Sexo == sexo);
+
+            foreach (var item in listaSexo)
+            {
+                Console.WriteLine(item);
+            }
+        }
+
         #endregion
+
+
+
+        public override string ToString()
+        {
+            return $"{Nome} - {DataNascimento.ToString("dd/MM/yyyy")} - {Cpf} - {Idade} - {Status}";
+        }
     }
+
 }

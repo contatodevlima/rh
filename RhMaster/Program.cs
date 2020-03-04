@@ -43,21 +43,22 @@ namespace RhMaster
                         break;
 
                     case 4:
+                        f.SalarioPorSexo();
                         // Ver salário por sexo
                         break;
 
                     case 5:
-                        f.Listarvelhos();
+                        f.ListarVelhos();
                         // Buscar o funcionário mais velho da empresa
                         break;
 
                     case 6:
-                        f.Listarnovos();
+                        f.ListarNovos();
                         // Buscar o funcionário mais novo da empresa
                         break;
 
                     case 7:
-                        
+                        f.ListarPorIdade();
                         // Buscar todos os funcionários ordenados pela idade
                         break;
 
@@ -85,7 +86,7 @@ namespace RhMaster
             Console.WriteLine(" 8. Buscar todos os funcionários pela nacionalidade");            
             Console.WriteLine(" 0. Sair do sistema");
             Console.WriteLine("__________________________________");
-            Console.Write(" -Digite a opção desejada :");
+            Console.WriteLine(" -  Digite a opção desejada :");
             return int.Parse(Console.ReadLine());
         }
         #endregion
