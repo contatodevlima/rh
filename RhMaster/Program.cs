@@ -25,6 +25,7 @@ namespace RhMaster
                             switch (subMenu)
                             {
                                 case 1:
+                                    f.AlterarNome();
                                     break;
                                 case 2:
 
@@ -46,18 +47,22 @@ namespace RhMaster
                         break;
 
                     case 5:
+                        f.Listarvelhos();
                         // Buscar o funcionário mais velho da empresa
                         break;
 
                     case 6:
+                        f.Listarnovos();
                         // Buscar o funcionário mais novo da empresa
                         break;
 
                     case 7:
+                        
                         // Buscar todos os funcionários ordenados pela idade
                         break;
 
                     case 8:
+                        f.ListarFuncionarios();
                         // Buscar todos os funcionários pela nacionalidade
                         break;
                 }
@@ -68,8 +73,8 @@ namespace RhMaster
         #region Menu
         public static int Menu()
         {
-            Console.Clear();
-            Console.WriteLine(" -  Digite a opção desejada");
+            Console.Clear();            
+            Console.WriteLine("__________________________________");
             Console.WriteLine(" 1. Inserir funcionários ");
             Console.WriteLine(" 2. Alterar dados ");
             Console.WriteLine(" 3. Folha de Pagamento");
@@ -77,9 +82,10 @@ namespace RhMaster
             Console.WriteLine(" 5. Buscar o funcionário mais velho da empresa ");
             Console.WriteLine(" 6. Buscar o funcionário mais novo da empresa");
             Console.WriteLine(" 7. Buscar todos os funcionários ordenados pela idade");
-            Console.WriteLine(" 8. Buscar todos os funcionários pela nacionalidade");
-            Console.WriteLine("____________________________");
+            Console.WriteLine(" 8. Buscar todos os funcionários pela nacionalidade");            
             Console.WriteLine(" 0. Sair do sistema");
+            Console.WriteLine("__________________________________");
+            Console.Write(" -Digite a opção desejada :");
             return int.Parse(Console.ReadLine());
         }
         #endregion
@@ -88,13 +94,15 @@ namespace RhMaster
         public static int SubMenu()
         {
             Console.Clear();
-            Console.WriteLine(" - Digite a opção de qual informação você deseja editar: ");
+            Console.WriteLine("__________________________________");
             Console.WriteLine(" 1. Alterar nome");
             Console.WriteLine(" 2. Alterar Data de nascimento");
             Console.WriteLine(" 3. Alterar Salário");
             Console.WriteLine(" 4. Alterar Status do funcionario");
-            Console.WriteLine("____________________________");
-            Console.WriteLine(" 0. Sair do sistema");
+            Console.WriteLine(" 0. Voltar ao menu principal");
+            Console.WriteLine("__________________________________");
+            Console.Write("   O que você deseja alterar? : ");
+           
             return int.Parse(Console.ReadLine());
 
         }

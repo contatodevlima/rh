@@ -38,39 +38,31 @@ namespace RhMaster
         public void InserirFuncionario()
         {
             Funcionario func = new Funcionario();
-            Console.WriteLine("Nome: ");
+            Console.Write("Nome: ");
             func.Nome = Console.ReadLine();
-            Console.WriteLine("Data de nascimento: ex.(01/01/1999) ");
+            Console.Write("Data de nascimento: ex.(01/01/1999) ");
             func.DataNascimento = DateTime.Parse(Console.ReadLine());
 
-            Console.WriteLine("Cpf: ");
+            Console.Write("Cpf: ");
             func.Cpf = Console.ReadLine();
             while (!(ValidaCpf(func.Cpf) && !(ExisteFuncionario(func.Cpf))))
             {
-                Console.WriteLine("CPF inválido ou já cadastrado na base");
+                Console.Write("CPF inválido ou já cadastrado, tente novamente: ");
                 Console.WriteLine("Cpf: ");
                 func.Cpf = Console.ReadLine();
             }
 
-            Console.WriteLine("Sexo: ex.(M/F)");
+            Console.Write("Sexo: ex.(M/F)");
             func.Sexo = Char.Parse(Console.ReadLine());
-            Console.WriteLine("Nacionalidade: ");
+            Console.Write("Nacionalidade: ");
             func.Nacionalidade = Console.ReadLine();
-            Console.WriteLine("Salário: ");
+            Console.Write("Salário: ");
             func.Salario = double.Parse(Console.ReadLine());
-            Console.WriteLine("Cargo: ");
+            Console.Write("Cargo: ");
             func.Cargo = Console.ReadLine();
             func.Status = StatusFuncionario.Ativo;
 
             ListaFuncionario.Add(func);
-        }
-
-        public void ListarFuncionarios()
-        {
-            foreach (var item in ListaFuncionario)
-            {
-                Console.WriteLine(item);
-            }
         }
         public bool ExisteFuncionario(string cpf)
         {
@@ -134,12 +126,63 @@ namespace RhMaster
         #endregion
 
         #region Métodos de alteração de dados
+        public void AlterarNome()
+        {
+            Console.Write("Insira o Cpf para alterar o nome :");
+            var cpf = Console.ReadLine();
 
+            for (int i = 0; i < ListaFuncionario.Count; i++)
+            {
+                if (ListaFuncionario[i].Cpf == cpf)
+                {
+                    Console.Write("Insira o novo nome :");
+                    var nome = Console.ReadLine();
+                    ListaFuncionario[i].Nome = nome;
+                    Console.WriteLine($"O nome foi alterado de{ListaFuncionario[i].Nome}, para {nome} com sucesso!");
+                    Console.ReadKey();
+                }
+                else
+                {
+                    Console.WriteLine("CPF não cadastrado, tente novamente.");
+                    Console.ReadKey();
+                }
+            }
+        }
         #endregion
 
         public override string ToString()
         {
             return $"{Nome} + {DataNascimento.ToString("dd/MM/yyyy")} + {Status}";
         }
+
+        #region Buscas
+        public void ListarFuncionarios()
+        {
+            foreach (var item in ListaFuncionario)
+            {
+                Console.WriteLine(item);
+            }
+            Console.ReadKey();
+        }
+
+        public void Listarnovos()
+        {
+            foreach (var item in ListaFuncionario)
+            {
+                var novos = ListaFuncionario.Min(novos => novos.DataNascimento);
+                Console.WriteLine(item.Nome);
+                Console.ReadKey();
+                break;
+               
+            }
+                      
+        }
+        public void Listarvelhos()
+        {
+            var novos = ListaFuncionario.Max( novos => novos.DataNascimento);
+            Console.WriteLine(novos.Year);
+            Console.ReadKey();
+        }
+        #endregion
     }
 }
