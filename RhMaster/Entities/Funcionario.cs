@@ -43,8 +43,15 @@ namespace RhMaster
             Funcionario func = new Funcionario();
             Console.Write("Nome: ");
             func.Nome = Console.ReadLine();
+
             Console.Write("Data de nascimento: ex.(01/01/1999) ");
             func.DataNascimento = DateTime.Parse(Console.ReadLine());
+            while (CalcIdade(func.DataNascimento) < 18)
+            {
+                Console.WriteLine(" :( Você está tentando cadastrar uma pessoa menor de idade");
+                Console.Write("Data de nascimento: ex.(01/01/1999) ");
+                func.DataNascimento = DateTime.Parse(Console.ReadLine());
+            }
 
             Console.Write("Cpf: ");
             func.Cpf = Console.ReadLine();
@@ -64,9 +71,11 @@ namespace RhMaster
             Console.Write("Cargo: ");
             func.Cargo = Console.ReadLine();
             func.Idade = CalcIdade(func.DataNascimento);
+            
             func.Status = StatusFuncionario.Ativo;
 
             ListaFuncionario.Add(func);
+            Console.WriteLine("Funcionário cadastrado com sucesso");
         }
         public bool ExisteFuncionario(string cpf)
         {
@@ -203,11 +212,11 @@ namespace RhMaster
         }
         public void SalarioPorSexo()
         {
-            double SalM = ListaFuncionario.Where(y => y.Sexo == 'M').Sum(x => x.Salario);
-            double SalF = ListaFuncionario.Where(y => y.Sexo == 'M').Sum(x => x.Salario);
+            double SalM = ListaFuncionario.Where(y => y.Sexo == 'M' || y.Sexo == 'm').Sum(x => x.Salario);
+            double SalF = ListaFuncionario.Where(y => y.Sexo == 'F' || y.Sexo == 'f').Sum(x => x.Salario);
 
             Console.WriteLine($"Salário total do sexo Feminino: {SalF}");
-            Console.WriteLine($"Salário total do sexo Feminino: {SalM}");
+            Console.WriteLine($"Salário total do sexo Masculino: {SalM}");
         }
 
         #endregion

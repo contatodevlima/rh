@@ -74,12 +74,12 @@ namespace RhMaster
         #region Menu
         public static int Menu()
         {
-            Console.Clear();            
+            Console.WriteLine();            
             Console.WriteLine("__________________________________");
             Console.WriteLine(" 1. Inserir funcionários ");
             Console.WriteLine(" 2. Alterar dados ");
             Console.WriteLine(" 3. Folha de Pagamento");
-            Console.WriteLine(" 4. Ver salário por sexo ");
+            Console.WriteLine(" 4. Ver total de salário por sexo ");
             Console.WriteLine(" 5. Buscar o funcionário mais velho da empresa ");
             Console.WriteLine(" 6. Buscar o funcionário mais novo da empresa");
             Console.WriteLine(" 7. Buscar todos os funcionários ordenados pela idade");
