@@ -74,6 +74,7 @@ namespace RhMaster
         #region Menu
         public static int Menu()
         {
+            Console.Clear();
             Console.WriteLine();            
             Console.WriteLine("__________________________________");
             Console.WriteLine(" 1. Inserir funcionários ");
@@ -86,7 +87,7 @@ namespace RhMaster
             Console.WriteLine(" 8. Buscar todos os funcionários pela nacionalidade");            
             Console.WriteLine(" 0. Sair do sistema");
             Console.WriteLine("__________________________________");
-            Console.WriteLine(" -  Digite a opção desejada :");
+            Console.Write(" -  Digite a opção desejada :");
             return int.Parse(Console.ReadLine());
         }
         #endregion

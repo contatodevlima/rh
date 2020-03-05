@@ -43,15 +43,8 @@ namespace RhMaster
             Funcionario func = new Funcionario();
             Console.Write("Nome: ");
             func.Nome = Console.ReadLine();
-
             Console.Write("Data de nascimento: ex.(01/01/1999) ");
             func.DataNascimento = DateTime.Parse(Console.ReadLine());
-            while (CalcIdade(func.DataNascimento) < 18)
-            {
-                Console.WriteLine(" :( Você está tentando cadastrar uma pessoa menor de idade");
-                Console.Write("Data de nascimento: ex.(01/01/1999) ");
-                func.DataNascimento = DateTime.Parse(Console.ReadLine());
-            }
 
             Console.Write("Cpf: ");
             func.Cpf = Console.ReadLine();
@@ -71,11 +64,9 @@ namespace RhMaster
             Console.Write("Cargo: ");
             func.Cargo = Console.ReadLine();
             func.Idade = CalcIdade(func.DataNascimento);
-            
             func.Status = StatusFuncionario.Ativo;
 
             ListaFuncionario.Add(func);
-            Console.WriteLine("Funcionário cadastrado com sucesso");
         }
         public bool ExisteFuncionario(string cpf)
         {
@@ -164,6 +155,7 @@ namespace RhMaster
                     ListaFuncionario[i].Nome = nome;
                     Console.WriteLine($"O nome foi alterado de{ListaFuncionario[i].Nome}, para {nome} com sucesso!");
                     Console.ReadKey();
+                    break;
                 }
                 else
                 {
@@ -186,18 +178,16 @@ namespace RhMaster
         
         public void ListarNovos()
         {
-            foreach (var item in ListaFuncionario)
-            {
-                var novos = ListaFuncionario.Min(novos => novos.DataNascimento);
-                Console.WriteLine(item.Nome);
-                Console.ReadKey();
-                break;
-            }
+
+            var novos = ListaFuncionario.OrderByDescending(x => x.DataNascimento).FirstOrDefault();
+            Console.WriteLine(novos.Nome);
+            Console.ReadKey();
+
         }
 
         public void ListarVelhos()
         {
-            var velhos = ListaFuncionario.OrderByDescending(x => x.DataNascimento).FirstOrDefault();
+            var velhos = ListaFuncionario.OrderByDescending(x => x.DataNascimento).LastOrDefault();
             Console.WriteLine(velhos.Nome);
             Console.ReadKey();
         }
@@ -212,11 +202,11 @@ namespace RhMaster
         }
         public void SalarioPorSexo()
         {
-            double SalM = ListaFuncionario.Where(y => y.Sexo == 'M' || y.Sexo == 'm').Sum(x => x.Salario);
-            double SalF = ListaFuncionario.Where(y => y.Sexo == 'F' || y.Sexo == 'f').Sum(x => x.Salario);
+            double SalM = ListaFuncionario.Where(y => y.Sexo == 'M').Sum(x => x.Salario);
+            double SalF = ListaFuncionario.Where(y => y.Sexo == 'M').Sum(x => x.Salario);
 
             Console.WriteLine($"Salário total do sexo Feminino: {SalF}");
-            Console.WriteLine($"Salário total do sexo Masculino: {SalM}");
+            Console.WriteLine($"Salário total do sexo Feminino: {SalM}");
         }
 
         #endregion
