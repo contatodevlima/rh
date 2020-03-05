@@ -197,8 +197,8 @@ namespace RhMaster
 
         public void ListarVelhos()
         {
-            var velhos = ListaFuncionario.Max(velhos => velhos.DataNascimento);
-            Console.WriteLine(velhos.Year);
+            var velhos = ListaFuncionario.OrderByDescending(x => x.DataNascimento).FirstOrDefault();
+            Console.WriteLine(velhos.Nome);
             Console.ReadKey();
         }
 
