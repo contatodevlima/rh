@@ -143,26 +143,11 @@ namespace RhMaster
         #region Métodos de alteração de dados
         public void AlterarNome()
         {
-            Console.Write("Insira o Cpf para alterar o nome :");
-            var cpf = Console.ReadLine();
-
-            for (int i = 0; i < ListaFuncionario.Count; i++)
-            {
-                if (ListaFuncionario[i].Cpf == cpf)
-                {
-                    Console.Write("Insira o novo nome :");
-                    var nome = Console.ReadLine();
-                    ListaFuncionario[i].Nome = nome;
-                    Console.WriteLine($"O nome foi alterado de{ListaFuncionario[i].Nome}, para {nome} com sucesso!");
-                    Console.ReadKey();
-                    break;
-                }
-                else
-                {
-                    Console.WriteLine("CPF não cadastrado, tente novamente.");
-                    Console.ReadKey();
-                }
-            }
+            Console.Write("Insira o novo nome para ser alterado :");
+            var nomeNovo = Console.ReadLine();
+            
+            var nome = ListaFuncionario.Where(y => y.Nome == nomeNovo).FirstOrDefault();
+           
         }
         #endregion
 
@@ -178,17 +163,15 @@ namespace RhMaster
         
         public void ListarNovos()
         {
-
-            var novos = ListaFuncionario.OrderByDescending(x => x.DataNascimento).FirstOrDefault();
-            Console.WriteLine(novos.Nome);
+            var novos = ListaFuncionario.OrderBy(x => x.DataNascimento).LastOrDefault();
+            Console.WriteLine($"O funcionário mais novo é: {novos.Nome}");
             Console.ReadKey();
-
         }
 
         public void ListarVelhos()
         {
-            var velhos = ListaFuncionario.OrderByDescending(x => x.DataNascimento).LastOrDefault();
-            Console.WriteLine(velhos.Nome);
+            var velhos = ListaFuncionario.OrderBy(x => x.DataNascimento).FirstOrDefault();
+            Console.WriteLine($"O funcionário mais velho é: {velhos.Nome}");
             Console.ReadKey();
         }
 
@@ -198,6 +181,7 @@ namespace RhMaster
             foreach (var item in listaIdade)
             {
                 Console.WriteLine(item);
+                Console.ReadKey();
             }
         }
         public void SalarioPorSexo()
