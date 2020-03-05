@@ -203,14 +203,11 @@ namespace RhMaster
         }
         public void SalarioPorSexo()
         {
-            Console.WriteLine("Sexo: M ou F");
-            char sexo = char.Parse(Console.ReadLine());
-            var listaSexo = ListaFuncionario.Where(x => x.Sexo == sexo);
+            double SalM = ListaFuncionario.Where(y => y.Sexo == 'M').Sum(x => x.Salario);
+            double SalF = ListaFuncionario.Where(y => y.Sexo == 'M').Sum(x => x.Salario);
 
-            foreach (var item in listaSexo)
-            {
-                Console.WriteLine(item);
-            }
+            Console.WriteLine($"Salário total do sexo Feminino: {SalF}");
+            Console.WriteLine($"Salário total do sexo Feminino: {SalM}");
         }
 
         #endregion
