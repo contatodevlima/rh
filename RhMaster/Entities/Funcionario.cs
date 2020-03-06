@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using RhMaster.Entities.Enum;
+using RhMaster.Entities;
 
 namespace RhMaster
 {
@@ -20,7 +21,6 @@ namespace RhMaster
 
         List<Funcionario> ListaFuncionario = new List<Funcionario>();
 
-        // CONSTRUTORES
         public Funcionario()
         {
         }
@@ -37,7 +37,6 @@ namespace RhMaster
             Status = status;
         }
 
-        // MÉTODOS
         public void InserirFuncionario()
         {
             Funcionario func = new Funcionario();
@@ -67,10 +66,26 @@ namespace RhMaster
             func.Status = StatusFuncionario.Ativo;
 
             ListaFuncionario.Add(func);
+            Console.WriteLine();
+            Console.WriteLine("Inserido com sucesso!");
+            Console.ReadLine();
         }
         public bool ExisteFuncionario(string cpf)
         {
             return ListaFuncionario.Any(x => x.Cpf == cpf);
+        }
+        public int ExisteAlgumFuncionario()
+        {
+            return ListaFuncionario.Count();
+        }
+        public void VerFolhaPagamento()
+        {
+            Contabilidade c = new Contabilidade();
+            c.CalculaImposto(ListaFuncionario);
+        }
+        public StatusFuncionario FuncAtivo(string cpf)
+        {
+            return ListaFuncionario.Where(x => x.Cpf == cpf).FirstOrDefault().Status;
         }
 
         #region Validando Cpf
@@ -143,12 +158,72 @@ namespace RhMaster
         #region Métodos de alteração de dados
         public void AlterarNome()
         {
-            Console.Write("Insira o novo nome para ser alterado :");
-            var nomeNovo = Console.ReadLine();
-            
-            var nome = ListaFuncionario.Where(y => y.Nome == nomeNovo).FirstOrDefault();
+            Console.Write("Insira o cpf de quem deseja alterar o nome: ");
+            string cpf = Console.ReadLine();
+            var nomeNovo = ListaFuncionario.Single(x => x.Cpf == cpf);
+
+            if (nomeNovo != null)
+            {
+                Console.WriteLine("Insira o novo nome: ");
+                nomeNovo.Nome = Console.ReadLine();
+            }
+            else
+            {
+                Console.WriteLine("Funcionário não existe na base!");
+                Console.ReadLine();
+            }
            
         }
+
+        public void alterarSalario()
+        {
+            Console.Write("Insira o cpf de quem deseja alterar o salário: ");
+            string cpf = Console.ReadLine();
+            var nomeNovo = ListaFuncionario.Single(x => x.Cpf == cpf);
+
+            if (nomeNovo != null)
+            {
+                Console.WriteLine("Insira o novo cargo: ");
+                nomeNovo.Cargo = Console.ReadLine();
+                Console.WriteLine("Insira o novo salário");
+                nomeNovo.Salario = double.Parse(Console.ReadLine());
+                Console.WriteLine("Alterado com sucesso!");
+                Console.ReadLine();
+            }
+            else
+            {
+                Console.WriteLine("Funcionário não existe na base!");
+                Console.ReadLine();
+            }
+        }
+
+        public void alterarStatus()
+        {
+            Console.Write("Insira o cpf de quem deseja alterar o status: ");
+            string cpf = Console.ReadLine();
+            var nomeNovo = ListaFuncionario.Single(x => x.Cpf == cpf);
+
+            if (nomeNovo != null)
+            {
+                Console.WriteLine("Digite 1 - Desligar 2 - Ativar");
+                int op = int.Parse(Console.ReadLine());
+                if (op == 1)
+                    nomeNovo.Status = StatusFuncionario.Desligado;
+                else if(op == 2)
+                    nomeNovo.Status = StatusFuncionario.Ativo;
+                else
+                    Console.WriteLine("Opção inválida!");
+
+                Console.WriteLine("Alterado com sucesso!");
+                Console.ReadLine();
+            }
+            else
+            {
+                Console.WriteLine("Funcionário não existe na base!");
+                Console.ReadLine();
+            }
+        }
+
         #endregion
 
         #region Buscas
@@ -158,21 +233,22 @@ namespace RhMaster
             {
                 Console.WriteLine(item);
             }
-            Console.ReadKey();
+            Console.ReadLine();
         }
         
-        public void ListarNovos()
+        public void ListarNovo()
         {
             var novos = ListaFuncionario.OrderBy(x => x.DataNascimento).LastOrDefault();
-            Console.WriteLine($"O funcionário mais novo é: {novos.Nome}");
-            Console.ReadKey();
+            Console.WriteLine($"O funcionário(a) mais novo é o(a): {novos.Nome} com {novos.Idade} anos");
+            Console.ReadLine();
         }
 
-        public void ListarVelhos()
+        public void ListarVelho()
         {
             var velhos = ListaFuncionario.OrderBy(x => x.DataNascimento).FirstOrDefault();
-            Console.WriteLine($"O funcionário mais velho é: {velhos.Nome}");
-            Console.ReadKey();
+            Console.WriteLine("");
+            Console.WriteLine($"O funcionário(a) mais velho da empresa é o(a): {velhos.Nome} com {velhos.Idade} anos");
+            Console.ReadLine();
         }
 
         public void ListarPorIdade()
@@ -181,16 +257,18 @@ namespace RhMaster
             foreach (var item in listaIdade)
             {
                 Console.WriteLine(item);
-                Console.ReadKey();
             }
+            Console.ReadLine();
         }
         public void SalarioPorSexo()
         {
-            double SalM = ListaFuncionario.Where(y => y.Sexo == 'M').Sum(x => x.Salario);
-            double SalF = ListaFuncionario.Where(y => y.Sexo == 'M').Sum(x => x.Salario);
+            double SalM = ListaFuncionario.Where(y => y.Sexo == 'M' || y.Sexo == 'm').Sum(x => x.Salario);
+            double SalF = ListaFuncionario.Where(y => y.Sexo == 'F' || y.Sexo == 'f').Sum(x => x.Salario);
 
+            Console.WriteLine("        Salário Total por Sexo         ");
             Console.WriteLine($"Salário total do sexo Feminino: {SalF}");
             Console.WriteLine($"Salário total do sexo Feminino: {SalM}");
+            Console.ReadLine();
         }
 
         #endregion
@@ -199,7 +277,7 @@ namespace RhMaster
 
         public override string ToString()
         {
-            return $"{Nome} - {DataNascimento.ToString("dd/MM/yyyy")} - {Cpf} - {Idade} - {Status}";
+            return $"{Nome} - {DataNascimento.ToString("dd/MM/yyyy")} - {Cpf} - {Idade} anos - {Salario} - {Status}";
         }
     }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace RhMaster
 {
@@ -11,7 +12,11 @@ namespace RhMaster
 
             do
             {
-                escolha = Menu();
+                if (f.ExisteAlgumFuncionario() == 0)
+                    escolha = MenuInicial();
+                else
+                    escolha = Menu();
+
                 switch (escolha)
                 {
                     case 1:
@@ -28,10 +33,10 @@ namespace RhMaster
                                     f.AlterarNome();
                                     break;
                                 case 2:
-
+                                    f.alterarSalario();
                                     break;
                                 case 3:
-                                       
+                                    f.alterarStatus();
                                     break;
                             }
                         }
@@ -39,55 +44,62 @@ namespace RhMaster
                         break;
 
                     case 3:
-                        // método folha de pagamento())   
+                        f.VerFolhaPagamento();
                         break;
 
                     case 4:
                         f.SalarioPorSexo();
-                        // Ver salário por sexo
                         break;
 
                     case 5:
-                        f.ListarVelhos();
-                        // Buscar o funcionário mais velho da empresa
+                        f.ListarVelho();
                         break;
 
                     case 6:
-                        f.ListarNovos();
-                        // Buscar o funcionário mais novo da empresa
+                        f.ListarNovo();
                         break;
 
                     case 7:
                         f.ListarPorIdade();
-                        // Buscar todos os funcionários ordenados pela idade
                         break;
 
                     case 8:
                         f.ListarFuncionarios();
-                        // Buscar todos os funcionários pela nacionalidade
                         break;
                 }
             }
             while (escolha != 0);
         }
 
+        #region MenuInicial
+        public static int MenuInicial()
+        {
+            Console.Clear();
+            Console.WriteLine("____________________RH MASTER____________________________");
+            Console.WriteLine(" 1. Inserir funcionários                                 ");          
+            Console.WriteLine(" 0. Sair do sistema                                      ");
+            Console.WriteLine("_________________________________________________________");
+            Console.WriteLine(" -  Digite a opção desejada: ");
+            return int.Parse(Console.ReadLine());
+        }
+        #endregion
+
         #region Menu
         public static int Menu()
         {
             Console.Clear();
-            Console.WriteLine();            
-            Console.WriteLine("__________________________________");
-            Console.WriteLine(" 1. Inserir funcionários ");
-            Console.WriteLine(" 2. Alterar dados ");
-            Console.WriteLine(" 3. Folha de Pagamento");
-            Console.WriteLine(" 4. Ver total de salário por sexo ");
-            Console.WriteLine(" 5. Buscar o funcionário mais velho da empresa ");
-            Console.WriteLine(" 6. Buscar o funcionário mais novo da empresa");
-            Console.WriteLine(" 7. Buscar todos os funcionários ordenados pela idade");
-            Console.WriteLine(" 8. Buscar todos os funcionários pela nacionalidade");            
-            Console.WriteLine(" 0. Sair do sistema");
-            Console.WriteLine("__________________________________");
-            Console.Write(" -  Digite a opção desejada :");
+            Console.WriteLine("____________________RH MASTER____________________________");
+            Console.WriteLine(" 1. Inserir funcionários                                 ");
+            Console.WriteLine(" 2. Alterar dados                                        ");
+            Console.WriteLine(" 3. Folha de Pagamento                                   ");
+            Console.WriteLine(" 4. Ver total de salário por sexo                        ");
+            Console.WriteLine(" 5. Buscar o funcionário mais velho da empresa           ");
+            Console.WriteLine(" 6. Buscar o funcionário mais novo da empresa            ");
+            Console.WriteLine(" 7. Buscar todos os funcionários ordenados pela idade    ");
+            Console.WriteLine(" 8. Buscar todos os funcionários pela nacionalidade");
+            Console.WriteLine(" 0. Sair do sistema                                      ");
+            Console.WriteLine("_________________________________________________________");
+            Console.WriteLine(" -  Digite a opção desejada: ");
             return int.Parse(Console.ReadLine());
         }
         #endregion
@@ -96,17 +108,15 @@ namespace RhMaster
         public static int SubMenu()
         {
             Console.Clear();
-            Console.WriteLine("__________________________________");
-            Console.WriteLine(" 1. Alterar nome");
-            Console.WriteLine(" 2. Alterar Data de nascimento");
-            Console.WriteLine(" 3. Alterar Salário");
-            Console.WriteLine(" 4. Alterar Status do funcionario");
-            Console.WriteLine(" 0. Voltar ao menu principal");
-            Console.WriteLine("__________________________________");
-            Console.Write("   O que você deseja alterar? : ");
+            Console.WriteLine("__________________RH MASTER____________");
+            Console.WriteLine(" 1. Alterar nome                       ");
+            Console.WriteLine(" 2. Alterar Salário                    ");
+            Console.WriteLine(" 3. Alterar Status do funcionário      ");
+            Console.WriteLine(" 0. Voltar ao menu principal           ");
+            Console.WriteLine("_______________________________________");
+            Console.WriteLine(" Digite a opção que deseja alterar: ");
            
             return int.Parse(Console.ReadLine());
-
         }
         #endregion
     }
