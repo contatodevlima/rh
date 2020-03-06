@@ -173,7 +173,7 @@ namespace RhMaster
         {
             Console.Write("Insira o cpf de quem deseja alterar o nome: ");
             string cpf = Console.ReadLine();
-            var nomeNovo = ListaFuncionario.Single(x => x.Cpf == cpf);
+            var nomeNovo = ListaFuncionario.FirstOrDefault(x => x.Cpf == cpf);
 
             if (nomeNovo != null)
             {
@@ -192,7 +192,7 @@ namespace RhMaster
         {
             Console.Write("Insira o cpf de quem deseja alterar o salário: ");
             string cpf = Console.ReadLine();
-            var nomeNovo = ListaFuncionario.Single(x => x.Cpf == cpf);
+            var nomeNovo = ListaFuncionario.FirstOrDefault(x => x.Cpf == cpf);
 
             if (nomeNovo != null)
             {
@@ -214,7 +214,7 @@ namespace RhMaster
         {
             Console.Write("Insira o cpf de quem deseja alterar o status: ");
             string cpf = Console.ReadLine();
-            var nomeNovo = ListaFuncionario.Single(x => x.Cpf == cpf);
+            var nomeNovo = ListaFuncionario.FirstOrDefault(x => x.Cpf == cpf);
 
             if (nomeNovo != null)
             {
