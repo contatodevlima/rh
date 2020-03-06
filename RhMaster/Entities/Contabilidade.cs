@@ -14,7 +14,7 @@ namespace RhMaster.Entities
         {
             foreach (var item in l)
             {
-                Console.WriteLine($"{item.Nome} - Salário: {item.Salario} reais - Salário com impostos {item.Salario * Imposto} reais");
+                Console.WriteLine($"{item.Nome} - Salário: {item.Salario} reais - Salário com impostos {(item.Salario * Imposto).ToString("f2")} reais");
                 somaSemImposto += item.Salario;
                 soma += item.Salario * Imposto;
             }

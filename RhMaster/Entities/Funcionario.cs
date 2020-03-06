@@ -44,7 +44,14 @@ namespace RhMaster
             func.Nome = Console.ReadLine();
             Console.Write("Data de nascimento: ex.(01/01/1999) ");
             func.DataNascimento = DateTime.Parse(Console.ReadLine());
-
+            while (CalcIdade(func.DataNascimento) < 18)
+            {
+                Console.WriteLine("Não é possível cadastrar um funcionário menor de idade");
+                Console.Write("Data de nascimento: ex.(01/01/1999) ");
+                func.DataNascimento = DateTime.Parse(Console.ReadLine());
+            }
+            func.Idade = CalcIdade(func.DataNascimento);
+            
             Console.Write("Cpf: ");
             func.Cpf = Console.ReadLine();
             while (!(ValidaCpf(func.Cpf) && !(ExisteFuncionario(func.Cpf))))
@@ -55,14 +62,20 @@ namespace RhMaster
             }
 
             Console.Write("Sexo: ex.(M/F)");
-            func.Sexo = Char.Parse(Console.ReadLine());
+            char sex = Char.Parse(Console.ReadLine());
+            while (!(sex != 'M' || sex != 'm' || sex != 'F' || sex != 'f'))
+            {
+                Console.WriteLine("Incorreto!");
+                Console.Write("Sexo: ex.(M/F)");
+                sex = Char.Parse(Console.ReadLine());
+            }
+            func.Sexo = sex;
             Console.Write("Nacionalidade: ");
             func.Nacionalidade = Console.ReadLine();
             Console.Write("Salário: ");
             func.Salario = double.Parse(Console.ReadLine());
             Console.Write("Cargo: ");
             func.Cargo = Console.ReadLine();
-            func.Idade = CalcIdade(func.DataNascimento);
             func.Status = StatusFuncionario.Ativo;
 
             ListaFuncionario.Add(func);
